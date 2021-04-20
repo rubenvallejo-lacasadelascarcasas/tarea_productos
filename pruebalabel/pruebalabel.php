@@ -77,27 +77,18 @@ class Pruebalabel extends Module
     protected function _installSql() {
         $sqlInstall = "ALTER TABLE " . _DB_PREFIX_ . "product "
                 . "ADD custom_field VARCHAR(255) NULL";
-        $sqlInstallLang = "ALTER TABLE " . _DB_PREFIX_ . "product_lang "
-                . "ADD custom_field_lang VARCHAR(255) NULL,"
-                . "ADD custom_field_lang_wysiwyg TEXT NULL";
- 
+        
         $returnSql = Db::getInstance()->execute($sqlInstall);
-        $returnSqlLang = Db::getInstance()->execute($sqlInstallLang);
- 
-        return $returnSql && $returnSqlLang;
+        
+        return $returnSql;
     }
- 
-   
     protected function _unInstallSql() {
        $sqlInstall = "ALTER TABLE " . _DB_PREFIX_ . "product "
                 . "DROP custom_field";
-        $sqlInstallLang = "ALTER TABLE " . _DB_PREFIX_ . "product_lang "
-                . "DROP custom_field_lang,DROP custom_field_lang_wysiwyg";
  
         $returnSql = Db::getInstance()->execute($sqlInstall);
-        $returnSqlLang = Db::getInstance()->execute($sqlInstallLang);
  
-        return $returnSql && $returnSqlLang;
+        return $returnSql;
     }
  
     public function hookDisplayProductButtons($params)
@@ -108,10 +99,8 @@ class Pruebalabel extends Module
 
         );
       return $this->display(__FILE__, 'views/templates/hook/vista.tpl');
-       
-       
-    }
-                 
+          
+    }             
  
     public function hookDisplayAdminProductsMainStepLeftColumnMiddle($params) {
         $product = new Product($params['id_product']);
